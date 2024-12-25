@@ -160,7 +160,7 @@ vmgenid: 8f84e0f9-534d-440b-bb6d-09ed75cdc167
 Email: gangqizai@gmail.com
 
 ---
-
+##更新！！！
 ### 不需要设置vifo。
 ### options vfio_iommu_type1 allow_unsafe_interrupts=1  允许不安全的设备中断，强烈建议核显独显直通都要加。
 ### /etc/default/grub 里面只需要以下这一个参数。
