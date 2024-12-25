@@ -118,13 +118,13 @@ gen12_gop.rom         | Intel 11-13代 酷睿
 > 执行 lspci -n | grep -E "0300" 查看并记录核显 VendorID 和 DeviceID
 >
 > ```
-> echo "options vfio-pci ids=8086:a780" >> /etc/modprobe.d/vifo.conf
+> echo "options vfio-pci ids=8086:a780" >> /etc/modprobe.d/vfio.conf
 > ```
 > ```
 > update-initramfs -u
 > reboot
 > ```
-### vifo.conf 没有 disable_vga=1，有的删掉！
+### vfio.conf 没有 disable_vga=1，有的删掉！
 
 #### PVE Windows 虚拟机 CONF：
 
@@ -158,3 +158,24 @@ vmgenid: 8f84e0f9-534d-440b-bb6d-09ed75cdc167
 ```
 
 Email: gangqizai@gmail.com
+
+
+
+### 不需要设置vifo。
+### options vfio_iommu_type1 allow_unsafe_interrupts=1  允许不安全的设备中断，强烈建议核显独显直通都要加。
+### /etc/default/grub 里面只需要以下这一个参数。
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+```
+### /etc/modprobe.d/pve-blacklist.conf 里面只需要三个参数
+```
+blacklist i915
+blacklist snd_hda_intel
+options vfio_iommu_type1 allow_unsafe_interrupts=1
+```
+### 虚拟机中只需要以下三个参数
+```
+args: -set device.hostpci0.x-igd-gms=0x2
+hostpci0: 0000:00:02.0,legacy-igd=1,romfile=11-14.rom
+hostpci1: 0000:00:1f.3
+```
