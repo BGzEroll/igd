@@ -178,7 +178,8 @@ options vfio_iommu_type1 allow_unsafe_interrupts=1
 ```
 ### 虚拟机中只需要以下三个参数
 ```
-args: -set device.hostpci0.x-igd-gms=0x2
+args: -set device.hostpci0.addr=02.0 -set device.hostpci0.x-igd-gms=0x2 -set device.hostpci0.x-igd-opregion=on
 hostpci0: 0000:00:02.0,legacy-igd=1,romfile=11-14.rom
+注：hostpci0在qemu9.2以上因为hostpci0: 0000:00:02.0,romfile=11-14.rom，机型用q35
 hostpci1: 0000:00:1f.3
 ```
